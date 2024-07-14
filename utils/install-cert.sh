@@ -5,10 +5,11 @@
 ###############################################################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
+cd ..
 
 echo 'Downloading the mitmproxy root certificate ...'
 DOWNLOAD_URL='http://mitm.it/cert/pem'
-FILENAME='../mitmproxy-root.crt'
+FILENAME='./mitmproxy-root.crt'
 if [ "$(curl -sw '%{http_code}' $DOWNLOAD_URL -o $FILENAME)" != '200' ]; then
   echo 'Problem encountered downloading the mitmproxy root CA'
   exit 1
