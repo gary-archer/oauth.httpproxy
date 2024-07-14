@@ -18,26 +18,23 @@ if [ "$PLATFORM" == 'windows' ]; then
     echo 'Problem encountered trusting the mitmproxy root CA'
     exit 1
   fi
+elif [ "$PLATFORM" == 'linux' ]; then
+    
+  #
+  # On Linux use the update-ca-certificates tool to add certificate trust
+  #
+  sudo cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
+  sudo update-ca-certificates
+  if [ $? -ne 0 ]; then
+    echo 'Problem encountered trusting the mitmproxy root CA'
+    exit 1
+  fi
 else
 
-  if [ "$PLATFORM" == 'linux' ]; then
-    
-    #
-    # On Linux use the update-ca-certificates tool to add certificate trust
-    #
-    sudo cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
-    sudo update-ca-certificates
-    if [ $? -ne 0 ]; then
-      echo 'Problem encountered trusting the mitmproxy root CA'
-      exit 1
-    fi
-  else
-
-    #
-    # Update the macOS trust store
-    #
-    echo '*** adding macOS trust ***'
-  fi
+  #
+  # Update the macOS trust store
+  #
+  echo '*** adding macOS trust ***'
 fi
 
 #
