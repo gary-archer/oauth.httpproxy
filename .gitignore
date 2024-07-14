@@ -2,4 +2,4 @@
 mitmproxy
 mitmweb
 mitmdump
-mitmproxy-root.crt
+mitmproxy*

@@ -35,6 +35,14 @@ if [ "$PID" == '' ]; then
 fi
 
 #
+# Wait for the process
+#
+echo 'Waiting for mitmweb to be started as root ...'
+while [ "$(pgrep mitmweb)" == '' ]; do
+  sleep 2
+done
+
+#
 # Activate the system to use MITM
 #
 . ./utils/activate.sh
