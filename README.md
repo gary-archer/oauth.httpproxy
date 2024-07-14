@@ -13,7 +13,7 @@ Run mitmweb like this, which manages installation if needed:
 ./start.sh
 ```
 
-Then capture OAuth requests, filtering on the domains you want to see traffic for:
+Then capture OAuth requests, and use the proxy's view filtering to limit hosts you see traffic for:
 
 ![capture](capture.png)
 
