@@ -10,7 +10,19 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 cd ..
 
 echo 'Starting the mitmproxy ...'
-sudo ./mitmweb -p 8888 --web-port 8889 --ssl-insecure --script init.py
+if [ "$PLATFORM" == 'windows' ]; then
+  
+  #
+  # The sudo command is not available on Git bash
+  #
+  ./mitmweb -p 8888 --web-port 8889 --ssl-insecure --script init.py
+else
+
+  #
+  # Otherwise replace the system proxy
+  #
+  sudo ./mitmweb -p 8888 --web-port 8889 --ssl-insecure --script init.py
+fi
 if [ $? -ne 0 ]; then
   echo 'Problem encountered running mitmproxy'
   read -n 1

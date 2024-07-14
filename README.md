@@ -3,11 +3,14 @@
 Utility scripts for a fast setup that enables capturing and visualization of OAuth related requests.\
 The [mitmproxy](https://docs.mitmproxy.org/stable/) tool does the main work and this repo just provides helper scripts.
 
+## Helper Scripts Behavior
+
+The scripts enable me to capture HTTP(S) requests in a productive manner.\
+They are self-documenting and work on Linux, Windows (with Git bash) and macOS.
+
 ## Usage
 
-The scripts enable me to capture HTTP(S) requests in a productive manner, without needing to think.\
-They are self-documenting and work on Linux, Windows and macOS.\
-Run mitmweb like this, which manages installation if needed:
+Run mitmweb like this, which manages download, activation and trusting the root CA:
 
 ```bash
 ./start.sh

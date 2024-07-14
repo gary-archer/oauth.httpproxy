@@ -1,5 +1,2 @@
 .DS_Store
-mitmproxy
-mitmweb
-mitmdump
-mitmproxy*
+mitm*
