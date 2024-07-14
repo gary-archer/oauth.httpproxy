@@ -15,7 +15,7 @@ Run mitmweb like this, which manages installation if needed:
 
 Then capture OAuth requests, filtering on the domains you want to see traffic for:
 
-![filter](filter.png)
+![capture](capture.png)
 
 When you are finished testing, run the following script in another terminal window:
 
