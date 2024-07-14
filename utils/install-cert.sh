@@ -14,10 +14,7 @@ if [ "$PLATFORM" == 'windows' ]; then
   # On Windows use the certutil tool to add certificate trust
   #
   certutil.exe -addstore root ~/.mitmproxy/mitmproxy-ca-cert.cer 1>/dev/null
-  if [ $? -ne 0 ]; then
-    echo 'Problem encountered trusting the mitmproxy root CA'
-    exit 1
-  fi
+
 elif [ "$PLATFORM" == 'linux' ]; then
     
   #
@@ -25,16 +22,17 @@ elif [ "$PLATFORM" == 'linux' ]; then
   #
   sudo cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
   sudo update-ca-certificates
-  if [ $? -ne 0 ]; then
-    echo 'Problem encountered trusting the mitmproxy root CA'
-    exit 1
-  fi
+  
 else
 
   #
-  # Update the macOS trust store
+  # On macOS use the security tool to add certificate trust
   #
-  echo '*** adding macOS trust ***'
+  sudo security add-trusted-cert -d -p ssl -p basic -k /Library/Keychains/System.keychain ~/.mitmproxy/mitmproxy-ca-cert.pem
+fi
+if [ $? -ne 0 ]; then
+  echo 'Problem encountered trusting the mitmproxy root CA'
+  exit 1
 fi
 
 #

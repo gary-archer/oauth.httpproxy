@@ -7,30 +7,24 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# Update the network proxy to no longer use mitmproxy
+# Prompt the user to reset their network proxy settings
 #
-echo 'Updating the network connection to use mitmproxy ...'
+echo 'Updating the network connection to disable mitmproxy ...'
 
 if [ "$PLATFORM" == 'macos' ]; then
 
-  echo 'macos deactivate'
+  echo "You must update your network connection settings under 'Details / Proxies'"
+  echo " - Disable 'Web Proxy (HTTP)'"
+  echo " - Disable 'Secure Web Proxy (HTTP)'"
+  open /System/Library/PreferencePanes/Network.prefPane/
 
 elif [ "$PLATFORM" == 'windows' ]; then
     
-  #
-  # On Windows there does not seem to be a safe automated way to change proxy settings
-  #
-  echo '*** On Windows you must deactivate using Manual proxy setup ***'
+  echo "You must update your network connection settings under 'Manual proxy setup'"
+  echo " - Set 'Use a proxy server' to 'Off'"
   start ms-settings:network-proxy
 
 elif [ "$PLATFORM" == 'linux' ]; then
 
-  #
-  # On Linux we use the gnome settings
-  #
   gsettings set org.gnome.system.proxy mode auto
-  if [ $? -ne 0 ]; then
-    echo 'Problem encountered deactivating mitmproxy'
-    exit 1
-  fi
 fi

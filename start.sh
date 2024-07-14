@@ -25,11 +25,22 @@ case "$(uname -s)" in
 esac
 
 #
-# Install if required
+# Check whether we need to do an install
 #
 INSTALL='false'
-if [ ! -f ./mitmproxy ]; then
+if [ "$PLATFORM" == 'macos' ]; then
+  mitmproxy --version 1>/dev/null
+else 
+  ./mitmproxy --version 1>/dev/null
+fi
+if [ $? -ne 0 ]; then
   INSTALL='true'
+fi
+
+#
+# Install if required
+#
+if [ "$INSTALL" == 'true' ]; then
   ./utils/install.sh
   if [ $? -ne 0 ]; then
     exit 1
@@ -39,22 +50,18 @@ fi
 #
 # Run the HTTP proxy in a second terminal window
 #
-PID=$(ps -ef | grep '[m]itmweb')
-if [ "$PID" == '' ]; then
+if [ "$PLATFORM" == 'macos' ]; then
+
+  open -a Terminal ./utils/run.sh
+
+elif [ "$PLATFORM" == 'windows' ]; then
   
-  if [ "$PLATFORM" == 'macos' ]; then
+  GIT_BASH="C:\Program Files\Git\git-bash.exe"
+  "$GIT_BASH" -c ./utils/run.sh &
 
-    open -a Terminal ./utils/run.sh
+elif [ "$PLATFORM" == 'linux' ]; then
 
-  elif [ "$PLATFORM" == 'windows' ]; then
-    
-    GIT_BASH="C:\Program Files\Git\git-bash.exe"
-    "$GIT_BASH" -c ./utils/run.sh &
-
-  elif [ "$PLATFORM" == 'linux' ]; then
-
-    gnome-terminal -- ./utils/run.sh
-  fi
+  gnome-terminal -- ./utils/run.sh
 fi
 sleep 5
 
@@ -67,9 +74,11 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Install the root CA if required
+# Install the root certificate if required
 #
-./utils/install-cert.sh
-if [ $? -ne 0 ]; then
-  exit 1
+if [ "$INSTALL" == 'true' ]; then
+  ./utils/install-cert.sh
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
 fi

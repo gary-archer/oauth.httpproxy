@@ -6,12 +6,29 @@
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 cd ..
+echo 'Checking whether mitmproxy is installed ...'
+
+#
+# On macOS we have to run an installer process
+#
+if [ $PLATFORM == 'macos' ]; then
+  
+  mitmproxy --version 1>/dev/null
+  if [ $? -ne 0 ]; then
+    
+    brew install mitmproxy
+    if [ $? -ne 0 ]; then
+      exit 1
+    fi
+  fi
+  exit 0
+fi
 
 #
 # Get platform specific values
 #
 if [ $PLATFORM == 'macos' ]; then
-  ARCH="$(uname -i)"
+  ARCH="$(uname -m)"
   EXT='tar.gz'
 elif [ $PLATFORM == 'windows' ]; then
   ARCH='x86_64'
