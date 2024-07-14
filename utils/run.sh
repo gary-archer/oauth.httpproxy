@@ -21,7 +21,7 @@ else
   #
   # Otherwise replace the system proxy
   #
-  sudo ./mitmweb -p 8888 --web-port 8889 --ssl-insecure --script init.py
+  ./mitmweb -p 8888 --web-port 8889 --ssl-insecure --script init.py
 fi
 if [ $? -ne 0 ]; then
   echo 'Problem encountered running mitmproxy'

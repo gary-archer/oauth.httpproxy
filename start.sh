@@ -56,14 +56,7 @@ if [ "$PID" == '' ]; then
     gnome-terminal -- ./utils/run.sh
   fi
 fi
-
-#
-# Wait for the process
-#
-echo 'Waiting for mitmweb to be started as root ...'
-while [ "$(ps -ef | grep '[m]itmweb')" == '' ]; do
-  sleep 2
-done
+sleep 5
 
 #
 # Activate the mitmproxy
@@ -74,25 +67,9 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Install the root CA when installing the proxy
+# Install the root CA if required
 #
-if [ "$INSTALL" == 'true' ]; then
-  ./utils/install-cert.sh
-  if [ $? -ne 0 ]; then
-    exit 1
-  fi
-fi
-
-#
-# On operating systems where mitmweb is not opened, run it in the default system browser
-#
-if [ "$PLATFORM" == 'macos' ]; then
-
-  echo 'Opening mitmweb in the system browser ...'
-  open -a Terminal ./utils/run.sh
-
-elif [ "$PLATFORM" == 'linux' ]; then
-
-  echo 'Opening mitmweb in the system browser ...'
-  gnome-terminal -- ./utils/run.sh
+./utils/install-cert.sh
+if [ $? -ne 0 ]; then
+  exit 1
 fi

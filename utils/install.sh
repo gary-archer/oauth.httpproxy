@@ -33,7 +33,6 @@ if [ "$(curl -sw '%{http_code}' $DOWNLOAD_URL -o $FILENAME)" != '200' ]; then
   echo 'Problem encountered downloading the mitmproxy release'
   exit 1
 fi
-rm response.txt
 
 #
 # Unzip files

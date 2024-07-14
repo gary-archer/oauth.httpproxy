@@ -11,7 +11,7 @@ echo 'Trusting the mitmproxy root certificate ...'
 if [ "$PLATFORM" == 'windows' ]; then
 
   #
-  # On Windows, use the certutil tool to add certificate trust
+  # On Windows use the certutil tool to add certificate trust
   #
   certutil.exe -addstore root ~/.mitmproxy/mitmproxy-ca-cert.cer 1>/dev/null
   if [ $? -ne 0 ]; then
@@ -20,23 +20,27 @@ if [ "$PLATFORM" == 'windows' ]; then
   fi
 else
 
-  #
-  # On other platforms, download the root certificate
-  #
-  DOWNLOAD_URL='http://mitm.it/cert/pem'
-  FILENAME='./mitmproxy-root.crt'
-  if [ "$(curl -sw '%{http_code}' $DOWNLOAD_URL -o $FILENAME)" != '200' ]; then
-    echo 'Problem encountered downloading the mitmproxy root CA'
-    exit 1
-  fi
+  if [ "$PLATFORM" == 'linux' ]; then
+    
+    #
+    # On Linux use the update-ca-certificates tool to add certificate trust
+    #
+    sudo cp ~/.mitmproxy/mitmproxy-ca-cert.pem /usr/local/share/ca-certificates/mitmproxy-ca-cert.crt
+    sudo update-ca-certificates
+    if [ $? -ne 0 ]; then
+      echo 'Problem encountered trusting the mitmproxy root CA'
+      exit 1
+    fi
+  else
 
-  #
-  # Then update the system trust store
-  #
-  sudo cp $FILENAME /usr/local/share/ca-certificates/
-  sudo update-ca-certificates
-  if [ $? -ne 0 ]; then
-    echo 'Problem encountered trusting the mitmproxy root CA'
-    exit 1
+    #
+    # Update the macOS trust store
+    #
+    echo '*** adding macOS trust ***'
   fi
 fi
+
+#
+# Also copy the certificate to the desktop so that it can be configured in other trust stores
+#
+cp ~/.mitmproxy/mitmproxy-ca-cert.pem ~/Desktop/
