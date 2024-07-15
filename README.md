@@ -1,16 +1,11 @@
 # OAuth HTTP Proxy
 
-Utility scripts for a fast setup that enables capturing and visualization of OAuth related requests.\
-The [mitmproxy](https://docs.mitmproxy.org/stable/) tool does the main work and this repo just provides helper scripts.
-
-## Helper Scripts Behavior
-
-The scripts enable me to capture HTTP(S) requests in a productive manner.\
-They are self-documenting and work on Linux, Windows (with Git bash) and macOS.
+Utility scripts to consolidate my [mitmproxy](https://docs.mitmproxy.org/stable/) usage across platforms in a single place.\
+I use mitmproxy on Linux, Windows (with Git bash) and macOS to visualize OAuth related requests and responses.
 
 ## Usage
 
-Run mitmweb like this, which manages download, activation and trusting the root CA:
+Run mitmweb like this, which manages download, certificate installation and proxy activation:
 
 ```bash
 ./start.sh
@@ -20,7 +15,7 @@ Then capture OAuth requests, and use the proxy's view filtering to limit hosts y
 
 ![capture](capture.png)
 
-When you are finished testing, run the following script in another terminal window:
+When you are finished testing, run the following script to free resources:
 
 ```bash
 ./stop.sh
@@ -28,10 +23,10 @@ When you are finished testing, run the following script in another terminal wind
 
 ## Activating Backend Processes to use the HTTP Proxy
 
-You may need to actively use the HTTP Proxy in some backend components.\
+Some extra steps may be needed to capture messages in particular browsers and technology stacks.\
 See the [HTTP Proxy Setup](https://apisandclients.com/posts/http-debugging-setup) blog post for further details.
 
 ## Configuring SSL Trust
 
-You may need to do extra SSL trust configuration for some browsers and technology stacks.\
+You may need to do extra SSL trust configuration for particular browsers and technology stacks.\
 See the [Development SSL Setup](https://apisandclients.com/posts/developer-ssl-setup) blog post for further details.

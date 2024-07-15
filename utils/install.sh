@@ -9,17 +9,13 @@ cd ..
 echo 'Checking whether mitmproxy is installed ...'
 
 #
-# On macOS we have to run an installer process
+# On macOS I would rather use binaries but this method meets macOS code signing requirements
 #
 if [ $PLATFORM == 'macos' ]; then
   
-  mitmproxy --version 1>/dev/null
+  brew install mitmproxy
   if [ $? -ne 0 ]; then
-    
-    brew install mitmproxy
-    if [ $? -ne 0 ]; then
-      exit 1
-    fi
+    exit 1
   fi
   exit 0
 fi
@@ -27,10 +23,7 @@ fi
 #
 # Get platform specific values
 #
-if [ $PLATFORM == 'macos' ]; then
-  ARCH="$(uname -m)"
-  EXT='tar.gz'
-elif [ $PLATFORM == 'windows' ]; then
+if [ $PLATFORM == 'windows' ]; then
   ARCH='x86_64'
   EXT='zip'
 elif [ $PLATFORM == 'linux' ]; then

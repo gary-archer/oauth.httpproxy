@@ -7,14 +7,13 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# Prompt the user to update the network proxy settings to use mitmproxy
+# Prompt the user to safely update the network proxy settings to use mitmproxy
 #
 if [ "$PLATFORM" == 'macos' ]; then
 
   echo "You must update your network connection settings under 'Details / Proxies'"
   echo " - Set 'Web Proxy (HTTP)' to 'Server=127.0.0.1' and 'Port=8888'"
   echo " - Set 'Secure Web Proxy (HTTP)' to 'Server=127.0.0.1' and 'Port=8888'"
-  
   open /System/Library/PreferencePanes/Network.prefPane/
 
 elif [ "$PLATFORM" == 'windows' ]; then
@@ -25,9 +24,9 @@ elif [ "$PLATFORM" == 'windows' ]; then
 
 elif [ "$PLATFORM" == 'linux' ]; then
 
-  gsettings set org.gnome.system.proxy mode manual
-  gsettings set org.gnome.system.proxy.http host 127.0.0.1
-  gsettings set org.gnome.system.proxy.https host 127.0.0.1
-  gsettings set org.gnome.system.proxy.http port 8888
-  gsettings set org.gnome.system.proxy.https port 8888
+  echo "You must update your network connection settings under 'Proxy'"
+  echo " - Set 'Configuration' to 'Manual'"
+  echo " - Set 'HTTP Proxy' to 'URL=127.0.0.1' and 'Port=8888'"
+  echo " - Set 'HTTPS Proxy' to 'URL=127.0.0.1' and 'Port=8888'"
+  gnome-control-center network
 fi

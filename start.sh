@@ -66,14 +66,6 @@ fi
 sleep 5
 
 #
-# Activate the mitmproxy
-#
-./utils/activate.sh
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-#
 # Install the root certificate if required
 #
 if [ "$INSTALL" == 'true' ]; then
@@ -82,3 +74,12 @@ if [ "$INSTALL" == 'true' ]; then
     exit 1
   fi
 fi
+
+#
+# Activate the mitmproxy
+#
+./utils/activate.sh
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+

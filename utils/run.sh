@@ -1,10 +1,8 @@
 #!/bin/bash
 
-###################################################################################
-# A script to run the mitmproxy in a new terminal window, so that output is visible
-# See the options here:
-# - https://manpages.ubuntu.com/manpages/bionic/man1/mitmweb.1.html
-###################################################################################
+#########################################################
+# A script to run the mitmproxy so that output is visible
+#########################################################
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 cd ..

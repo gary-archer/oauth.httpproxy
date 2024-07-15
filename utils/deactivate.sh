@@ -7,7 +7,7 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
-# Prompt the user to reset their network proxy settings
+# Prompt the user to safely reset their network proxy settings
 #
 echo 'Updating the network connection to disable mitmproxy ...'
 
@@ -26,5 +26,7 @@ elif [ "$PLATFORM" == 'windows' ]; then
 
 elif [ "$PLATFORM" == 'linux' ]; then
 
-  gsettings set org.gnome.system.proxy mode auto
+  echo "You must update your network connection settings under 'Proxy'"
+  echo " - Set 'Configuration' to 'Automatic'"
+  gnome-control-center network
 fi
