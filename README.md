@@ -25,9 +25,9 @@ When you finish testing, run the following script to free resources:
 ## Activating Backend Processes to use the HTTP Proxy
 
 Some extra steps may be needed to capture messages in particular browsers and technology stacks.\
-See the [HTTP Proxy Setup](https://apisandclients.com/posts/http-debugging-setup) blog post for further details.
+See the [HTTP Proxy Setup](https://github.com/gary-archer/oauth.blog/tree/master/public/posts/http-debugging-setup.mdx) blog post for further details.
 
 ## Configuring SSL Trust
 
 You may need to do extra SSL trust configuration for particular browsers and technology stacks.\
-See the [Development SSL Setup](https://apisandclients.com/posts/developer-ssl-setup) blog post for further details.
+See the [Development SSL Setup](https://github.com/gary-archer/oauth.blog/tree/master/public/posts/developer-ssl-setup.mdx) blog post for further details.
