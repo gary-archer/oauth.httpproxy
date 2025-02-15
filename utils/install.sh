@@ -34,7 +34,7 @@ fi
 #
 # Download the zip file
 #
-VERSION='10.3.1'
+VERSION='11.1.2'
 FILENAME="mitmproxy-$VERSION-$PLATFORM-$ARCH.$EXT"
 rm $FILENAME 2>/dev/null
 DOWNLOAD_URL="https://downloads.mitmproxy.org/$VERSION/$FILENAME"
